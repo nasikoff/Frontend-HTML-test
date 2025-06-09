@@ -1,0 +1,194 @@
+@use 'src/index.scss' as *;
+
+.SidebarContainer {
+  background-color: var(--color-sidebar-background-light-default);
+  width: 250px;
+  padding: 20px 10px;
+  display: flex;
+  margin: 0.5em;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -125px;
+  border-radius: 1.5em;
+  transition: width 0.33s ease-in-out, margin-left 0.33s ease-in-out;
+  z-index: 100;
+
+  &.dark {
+    background-color: var(--color-sidebar-background-dark-default);
+  }
+
+  &.opened {
+    width: 250px;
+    margin-left: -125px;
+  }
+
+  &.closed {
+    width: 44px;
+    margin-left: -25px;
+  }
+}
+
+.LogoSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+  transition: transform 0.33s ease-in-out, padding 0.33s ease-in-out;
+
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    margin-left: 5px;
+    transition: margin-left 0.33s ease-in-out, margin-right 0.33s ease-in-out, transform 0.33s ease-in-out;
+  }
+
+  span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-logo-light-default);
+    opacity: 1;
+    max-width: 200px;
+    overflow: hidden;
+    transition: opacity 0.33s ease-in-out, max-width 0.33s ease-in-out, transform 0.33s ease-in-out;
+    white-space: nowrap;
+
+    .SidebarContainer.closed & {
+      opacity: 0;
+      max-width: 0;
+      transform: translateX(10px);
+    }
+
+    .SidebarContainer.dark & {
+      color: var(--color-text-logo-dark-default);
+    }
+  }
+
+  .SidebarContainer.closed & {
+    transform: translateX(calc(50% - 15px));
+    padding: 0;
+
+    img {
+      margin-left: 0;
+      margin-right: 0;
+      transform: translateX(-5px);
+    }
+  }
+}
+
+.ToggleButton {
+  position: absolute;
+  right: -45px;
+  top: 50px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--color-text-light-default);
+  background-color: var(--color-sidebar-background-light-default);
+  padding: 5px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease, color 0.3s ease, background-color 0.3s ease;
+  z-index: 101;
+
+  .SidebarContainer.closed & {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .SidebarContainer.dark & {
+    color: var(--color-text-dark-default);
+    background-color: var(--color-sidebar-background-dark-default);
+  }
+}
+
+.NavItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 15px;
+  cursor: pointer;
+  color: var(--color-text-light-default);
+  background-color: transparent;
+  transition: transform 0.33s ease-in-out, padding 0.33s ease-in-out, color 0.33s ease-in-out, background-color 0.33s ease-in-out;
+  position: relative;
+
+  &.active {
+    color: var(--color-text-light-active);
+    background-color: var(--color-sidebar-background-light-active);
+  }
+
+  svg {
+    margin-right: 10px;
+    font-size: 1.1rem;
+    transition: margin-right 0.33s ease-in-out, transform 0.33s ease-in-out, color 0.33s ease-in-out;
+    position: relative;
+    left: 0;
+  }
+
+  span {
+    font-size: 1rem;
+    opacity: 1;
+    max-width: 200px;
+    overflow: hidden;
+    transition: opacity 0.33s ease-in-out, max-width 0.33s ease-in-out, transform 0.33s ease-in-out;
+    white-space: nowrap;
+
+    .SidebarContainer.closed & {
+      opacity: 0;
+      max-width: 0;
+      transform: translateX(10px);
+    }
+  }
+
+  &:hover {
+    background-color: var(--color-sidebar-background-light-hover);
+    color: var(--color-text-light-hover);
+
+    svg {
+      color: var(--color-text-light-hover);
+    }
+  }
+
+  .SidebarContainer.dark & {
+    color: var(--color-text-dark-default);
+
+    &.active {
+      color: var(--color-text-dark-active);
+      background-color: var(--color-sidebar-background-dark-active);
+    }
+
+    &:hover {
+      background-color: var(--color-sidebar-background-dark-hover);
+      color: var(--color-text-dark-hover);
+
+      svg {
+        color: var(--color-text-dark-hover);
+      }
+    }
+
+    svg {
+      color: var(--color-text-dark-default);
+
+      .NavItem.active & {
+        color: var(--color-text-dark-active);
+      }
+    }
+  }
+
+  .SidebarContainer.closed & {
+    padding: 10px 0;
+    transform: translateX(calc(50% - 22px));
+
+    svg {
+      margin: 0;
+      transform: translateX(12px);
+    }
+  }
+}
